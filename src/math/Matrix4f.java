@@ -1,5 +1,10 @@
 package math;
 
+
+import utils.BufferUtils;
+
+import java.nio.FloatBuffer;
+
 /**
  * Created by Ignograus on 22.03.2016.
  */
@@ -37,5 +42,49 @@ public class Matrix4f {
         result.elements[2 + 3 * 4] = (far + near) / (far - near);
 
         return result;
+    }
+
+    public static Matrix4f translate(Vector3f vector) {
+        Matrix4f result = identity();
+
+        result.elements[0+3 * 4] = vector.x;
+        result.elements[1+3 * 4] = vector.y;
+        result.elements[2+3 * 4] = vector.z;
+        return result;
+    }
+
+
+    public static Matrix4f rotate(float angle) {
+        Matrix4f result = identity();
+        float r = (float) Math.toRadians(angle);
+        float cos = (float) Math.cos(r);
+        float sin = (float) Math.sin(r);
+
+        result.elements[0+0*4] = cos;
+        result.elements[1+0*4] = sin;
+
+        result.elements[0+1*4] = -sin;
+        result.elements[1+1*4] = cos;
+
+        return result;
+
+    }
+
+    public Matrix4f multiply(Matrix4f matrix) {
+        Matrix4f result = new Matrix4f();
+        for (int y=0; y < 4; y++) {
+            for (int x=0; x < 4; x++) {
+                float sum = 0;
+                for (int z=0; z < 4; z++) {
+                    sum += this.elements[x + z *4] * matrix.elements[z + y * 4];
+                }
+                result.elements[x + y *4] = sum;
+            }
+        }
+        return result;
+    }
+
+    public FloatBuffer toFloatBuffer() {
+        return BufferUtils.createFloatBuffer(elements);
     }
 }

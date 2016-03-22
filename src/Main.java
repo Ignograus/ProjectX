@@ -68,6 +68,8 @@ public class Main implements Runnable{
         glEnable(GL_DEPTH_TEST);
         System.out.println("OpenGL: " + glGetString(GL_VERSION));
 
+        System.out.println("Basti is doof");
+
     }
 
     private void render() {

@@ -2,8 +2,12 @@ import java.nio.ByteBuffer;
 
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.*;
+import static org.lwjgl.opengl.GL13.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
+import graphics.Shader;
+import level.Level;
+import math.Matrix4f;
 import org.lwjgl.PointerBuffer;
 import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.opengl.GL;
@@ -20,6 +24,8 @@ public class Main implements Runnable{
     private boolean running = false;
 
     private long window;
+
+    private Level level;
 
     public static void main(String[] args) {
         new Main().start();
@@ -62,17 +68,23 @@ public class Main implements Runnable{
         glfwSetKeyCallback(window, new Input());
         glfwMakeContextCurrent(window);
         glfwShowWindow(window);
-
         GL.createCapabilities();
+
         glClearColor(1, 1, 1, 1 );
         glEnable(GL_DEPTH_TEST);
+        glActiveTexture(GL_TEXTURE1);
         System.out.println("OpenGL: " + glGetString(GL_VERSION));
+        Shader.loadAll();
 
-
+        Matrix4f pr_matrix = Matrix4f.orthographics(-10,10,-10 * 9 / 16,10*9/16,-1,1);
+        Shader.BG.setUniformMat4f("pr_matrix", pr_matrix);
+        Shader.BG.setUniform1i("tex",1);
+        level = new Level();
     }
 
     private void render() {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        level.render();
         glfwSwapBuffers(window);
     }
 

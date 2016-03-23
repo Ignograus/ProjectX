@@ -1,4 +1,4 @@
-package utils;
+package flappy.utils;
 
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;

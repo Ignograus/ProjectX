@@ -1,4 +1,4 @@
-package math;
+package flappy.math;
 
 /**
  * Created by Ignograus on 22.03.2016.

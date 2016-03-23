@@ -1,4 +1,4 @@
-package utils;
+package flappy.utils;
 
 import static org.lwjgl.opengl.GL11.GL_FALSE;
 import static org.lwjgl.opengl.GL20.*;

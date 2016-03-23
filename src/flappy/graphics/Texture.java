@@ -1,6 +1,6 @@
-package graphics;
+package flappy.graphics;
 
-import utils.BufferUtils;
+import flappy.utils.BufferUtils;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;

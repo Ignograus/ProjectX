@@ -1,4 +1,4 @@
-package utils;
+package flappy.utils;
 
 import java.io.BufferedReader;
 import java.io.FileReader;

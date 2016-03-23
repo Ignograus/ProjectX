@@ -1,13 +1,13 @@
-import java.nio.ByteBuffer;
+package flappy;
 
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.opengl.GL13.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
-import graphics.Shader;
-import level.Level;
-import math.Matrix4f;
+import flappy.graphics.Shader;
+import flappy.level.Level;
+import flappy.math.Matrix4f;
 import org.lwjgl.PointerBuffer;
 import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.opengl.GL;
@@ -39,9 +39,31 @@ public class Main implements Runnable{
 
     public void run() {
         init();
+
+        long lastTime = System.nanoTime();
+        double ns = 1000000000 / 60;
+        long timer = System.currentTimeMillis();
+        double delta = 0;
+        int updates = 0;
+        int frames = 0;
         while(running) {
-            update();
+            long now = System.nanoTime();
+            delta += (now -lastTime) / ns;
+            lastTime = now;
+            if(delta >= 1) {
+                update();
+                updates++;
+                delta--;
+            }
+
             render();
+            frames++;
+            if (System.currentTimeMillis() - timer > 1000) {
+                timer += 1000;
+                System.out.println(updates + " ups, " + frames + " fps" );
+                updates = 0;
+                frames = 0;
+            }
 
             if(glfwWindowShouldClose(window) == GL_TRUE)
                 running = false;
@@ -90,6 +112,7 @@ public class Main implements Runnable{
 
     private void update() {
         glfwPollEvents();
+        level.update();
         if (Input.keys[GLFW_KEY_SPACE])
             System.out.println("Flap");
     }

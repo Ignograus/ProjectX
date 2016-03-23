@@ -1,6 +1,6 @@
-package graphics;
+package flappy.graphics;
 
-import utils.BufferUtils;
+import flappy.utils.BufferUtils;
 
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.opengl.GL15.*;

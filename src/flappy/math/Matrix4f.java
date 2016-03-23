@@ -1,7 +1,7 @@
-package math;
+package flappy.math;
 
 
-import utils.BufferUtils;
+import flappy.utils.BufferUtils;
 
 import java.nio.FloatBuffer;
 

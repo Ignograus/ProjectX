@@ -1,8 +1,8 @@
-package graphics;
+package flappy.graphics;
 
-import math.Matrix4f;
-import math.Vector3f;
-import utils.ShaderUtils;
+import flappy.math.Matrix4f;
+import flappy.math.Vector3f;
+import flappy.utils.ShaderUtils;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -16,7 +16,7 @@ public class Shader {
     public static final int VERTEX_ATTRIB = 0;
     public static final int TCOORD_ATTRIB = 1;
 
-    public static Shader BG;
+    public static Shader BG, BIRD;
 
     private boolean enabled = false;
 
@@ -29,6 +29,7 @@ public class Shader {
 
     public static void loadAll() {
         BG = new Shader("shaders/bg.vert", "shaders/bg.frag");
+        BIRD = new Shader("shaders/bird.vert", "shaders/bird.frag");
     }
 
     public int getUniform(String name) {
